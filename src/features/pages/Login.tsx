@@ -19,6 +19,8 @@ const FormWrapper = styled.div`
   background-color: ${Colors.blue};
 `;
 
+const Div = styled.div``;
+
 export const Login: React.FC = ({}) => {
   let navigate = useNavigate();
   const {
