@@ -10,11 +10,13 @@ const WindowWrapper = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: ${Colors.blue};
+  background-color: ${Colors.lightBlue};
 `;
 
-const WelcomeLabel = styled.h1`
-  color: green;
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${Colors.blue};
 `;
 
 export const Login: React.FC = ({}) => {
@@ -29,7 +31,19 @@ export const Login: React.FC = ({}) => {
 
   return (
     <WindowWrapper>
-      <WelcomeLabel>HOME!</WelcomeLabel>
+      <FormWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <input defaultValue="test" {...register("example")} />
+          </div>
+          <div>
+            {" "}
+            <input {...register("example", { required: true })} />
+          </div>
+
+          <input type="submit"></input>
+        </form>
+      </FormWrapper>
     </WindowWrapper>
   );
 };
