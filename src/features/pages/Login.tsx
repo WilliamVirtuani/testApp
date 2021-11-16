@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -16,10 +16,14 @@ const WindowWrapper = styled.div`
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.blue};
 `;
 
 const Div = styled.div``;
+
+type Inputs = {
+  firstField: string;
+  secondField: string;
+};
 
 export const Login: React.FC = ({}) => {
   let navigate = useNavigate();
@@ -28,19 +32,24 @@ export const Login: React.FC = ({}) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<Inputs>();
   const onSubmit = (data: any) => console.log(data);
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   return (
     <WindowWrapper>
       <FormWrapper>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <input defaultValue="test" {...register("example")} />
+            <input defaultValue="c" {...register("firstField")} />
           </div>
           <div>
             {" "}
-            <input {...register("example", { required: true })} />
+            <input {...register("secondField")} />
+            {errors.secondField && <span>This field is required</span>}
           </div>
 
           <input type="submit"></input>
