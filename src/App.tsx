@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
+import { Counter } from "./app/features/counter/Counter";
 import "./App.css";
 import styled from "styled-components";
 import {
@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { isJSDocParameterTag } from "typescript";
 import { useParams } from "react-router-dom";
-import { Login } from "./features/pages/Login";
+import { Login } from "./app/features/pages/Login";
 
 const WelcomeLabel = styled.h1`
   color: green;

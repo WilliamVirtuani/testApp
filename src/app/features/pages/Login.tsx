@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Colors from "../settings/colors";
+import InputComponent from "../../components/InputComponent";
 
 const WindowWrapper = styled.div`
   display: flex;
@@ -18,7 +19,9 @@ const FormWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Div = styled.div``;
+const Div = styled.div`
+  margin-top: 5%;
+`;
 
 type Inputs = {
   firstField: string;
@@ -43,14 +46,17 @@ export const Login: React.FC = ({}) => {
     <WindowWrapper>
       <FormWrapper>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <input defaultValue="c" {...register("firstField")} />
-          </div>
-          <div>
+          <Div>
+            <InputComponent
+              inError={errors.firstField ? true : false}
+              {...register("firstField", { required: true })}
+            ></InputComponent>
+          </Div>
+          <Div>
             {" "}
             <input {...register("secondField")} />
             {errors.secondField && <span>This field is required</span>}
-          </div>
+          </Div>
 
           <input type="submit"></input>
         </form>
