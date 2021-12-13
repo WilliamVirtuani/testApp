@@ -1,0 +1,6 @@
+{
+  "accounts": [
+    { "email": "virtuani@gmail.com", "password": "ciao" },
+    { "email": "ciao@gmail.com", "password": "ciaociao" }
+  ]
+}

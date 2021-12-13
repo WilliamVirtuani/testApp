@@ -1,9 +1,24 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import Colors from "../settings/colors";
 import InputComponent from "../../components/InputComponent";
+import jsonData from "../mock/account.json";
+
+type Inputs = {
+  firstField: string;
+  secondField: string;
+};
+
+type Accounts = {
+  email: string;
+  password: string;
+};
+
+type AccountsList = {
+  accounts: Accounts[];
+};
 
 const WindowWrapper = styled.div`
   display: flex;
@@ -23,24 +38,34 @@ const Div = styled.div`
   margin-top: 5%;
 `;
 
-type Inputs = {
-  firstField: string;
-  secondField: string;
-};
-
 export const Login: React.FC = ({}) => {
   let navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<Inputs>();
-  const onSubmit = (data: any) => console.log(data);
+
+  const accountsData: AccountsList = jsonData;
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log("data", data);
+    accountsData.accounts.forEach((element) => {
+      if (
+        element.email === data.firstField &&
+        element.password === data.secondField
+      ) {
+        console.log("trovato");
+        return true;
+      }
+    });
+  };
 
   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+    console.log("Errors", errors);
+    console.log(isValid);
+  }, [errors, isValid]);
 
   return (
     <WindowWrapper>
@@ -48,17 +73,19 @@ export const Login: React.FC = ({}) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Div>
             <InputComponent
+              register={register("firstField", { required: true })}
               inError={errors.firstField ? true : false}
-              {...register("firstField", { required: true })}
             ></InputComponent>
           </Div>
           <Div>
-            {" "}
-            <input {...register("secondField")} />
-            {errors.secondField && <span>This field is required</span>}
+            <InputComponent
+              register={register("secondField", { required: true })}
+              inError={errors.secondField ? true : false}
+            ></InputComponent>
           </Div>
-
-          <input type="submit"></input>
+          <Div>
+            <button type={"submit"}>Accedi</button>
+          </Div>
         </form>
       </FormWrapper>
     </WindowWrapper>
